@@ -1,9 +1,9 @@
 import { useState, useEffect, useCallback } from "react";
-// SearchBar import is removed as it's no longer directly used here.
+import SearchBar from "@/components/SearchBar"; // Importar SearchBar
 import ServiceCard, { ServiceProvider } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Zap, Users, Building } from 'lucide-react';
-import { Link, useSearchParams } from "react-router-dom"; // Removed useNavigate as setSearchParams handles navigation implicitly
+import { Link, useSearchParams } from "react-router-dom";
 import { sampleProviders } from "@/data/providers";
 
 const Index = () => {
@@ -11,7 +11,8 @@ const Index = () => {
   const [activeSearchTerm, setActiveSearchTerm] = useState<string>("");
   const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearch = useCallback((searchTerm: string) => {
+  // Esta função contém a lógica de filtragem e atualização do estado local
+  const performSearchLogic = useCallback((searchTerm: string) => {
     const trimmedSearchTerm = searchTerm.trim();
     setActiveSearchTerm(trimmedSearchTerm);
 
@@ -43,18 +44,19 @@ const Index = () => {
 
     console.log("Resultados encontrados:", rankedResults.length);
     setFilteredProviders(rankedResults);
-  }, [setActiveSearchTerm, setFilteredProviders]); // Dependencies for useCallback
+  }, [setActiveSearchTerm, setFilteredProviders]);
 
+  // useEffect para reagir a mudanças nos parâmetros da URL
   useEffect(() => {
     const queryParamSearch = searchParams.get("search");
-    
-    if (queryParamSearch !== null) { // Se existe o parâmetro "search" na URL
-      handleSearch(queryParamSearch);
-    } else if (activeSearchTerm !== "") { // Se não há parâmetro mas havia uma busca ativa
-      handleSearch(""); // Limpa a busca
-    }
-    // Se queryParamSearch é null e activeSearchTerm já é "", não faz nada.
-  }, [searchParams, handleSearch, activeSearchTerm]);
+    performSearchLogic(queryParamSearch || ""); // Executa a lógica de busca com o termo da URL ou string vazia
+  }, [searchParams, performSearchLogic]);
+
+  // Handler para quando a SearchBar na página Index é submetida
+  const handleIndexPageSearch = (searchTerm: string) => {
+    const trimmedSearchTerm = searchTerm.trim();
+    setSearchParams(trimmedSearchTerm ? { search: trimmedSearchTerm } : {});
+  };
 
   const clearSearchAndShowFeatured = () => {
     setSearchParams({}); // Remove o parâmetro "search" da URL, o que acionará o useEffect
@@ -68,10 +70,12 @@ const Index = () => {
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
             Encontre os <span className="text-primary">parceiros ideais</span> para o seu sucesso.
           </h1>
-          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-10">
+          <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-8"> {/* Diminuído mb de 10 para 8 */}
             Chega de perder tempo em grupos! concierge.ia conecta você aos melhores profissionais e serviços de forma rápida e inteligente.
           </p>
-          {/* A SearchBar foi removida desta seção */}
+          <div className="w-full max-w-xl mx-auto mb-10"> {/* Div para centralizar e dimensionar a SearchBar */}
+            <SearchBar onSearch={handleIndexPageSearch} /> {/* SearchBar adicionada de volta */}
+          </div>
         </div>
       </section>
 
