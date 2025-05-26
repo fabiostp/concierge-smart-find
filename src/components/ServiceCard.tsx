@@ -1,8 +1,7 @@
-
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Star, MapPin, Briefcase } from 'lucide-react';
+import { Star, MapPin } from 'lucide-react';
 
 export interface ServiceProvider {
   id: string;
@@ -28,8 +27,8 @@ const ServiceCard = ({ provider }: ServiceCardProps) => {
           <CardTitle className="text-xl font-semibold text-primary">{provider.name}</CardTitle>
           <Badge variant="secondary">{provider.category}</Badge>
         </div>
-        <CardDescription className="flex items-center text-sm text-muted-foreground pt-1">
-          <Briefcase className="h-4 w-4 mr-1.5" /> {provider.service}
+        <CardDescription className="text-sm text-muted-foreground pt-1">
+          {provider.service}
         </CardDescription>
       </CardHeader>
       <CardContent>
