@@ -23,9 +23,6 @@ const Header = () => {
           <Briefcase className="h-7 w-7 text-primary" />
           {/* O texto "concierge.ia" foi removido daqui */}
         </Link>
-        <div className="w-full md:flex-1 md:max-w-xl">
-          <SearchBar onSearch={handleHeaderSearch} />
-        </div>
         <nav className="hidden md:flex items-center space-x-4">
           {/* Futuros links de navegação, como Login/Cadastro, podem ir aqui */}
         </nav>
