@@ -52,7 +52,7 @@ const Index = () => {
   return (
     <>
       {/* Seção Hero */}
-      <section className="py-16 md:py-24 bg-gradient-to-br from-primary/10 via-background to-background">
+      <section className="pt-8 md:pt-12 pb-16 md:pb-24 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
             Encontre os <span className="text-primary">parceiros ideais</span> para o seu sucesso.
