@@ -49,6 +49,11 @@ const Index = () => {
       {/* Seção Hero */}
       <section className="pb-16 md:pb-24 bg-gradient-to-br from-primary/10 via-background to-background">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 md:pt-12">
+          <img
+            src="https://images.unsplash.com/photo-1488590528505-98d2b5aba04b?w=640"
+            alt="Concierge.ia Logo"
+            className="mx-auto mb-8 h-24 w-auto" // Ajuste a altura e margem conforme necessário
+          />
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
             Encontre os <span className="text-primary">parceiros ideais</span> para o seu sucesso.
           </h1>
