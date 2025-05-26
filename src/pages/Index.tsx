@@ -1,7 +1,7 @@
-
 import { useState, useEffect, useCallback } from "react";
 import SearchBar from "@/components/SearchBar"; // Importar SearchBar
 import ServiceCard, { ServiceProvider } from "@/components/ServiceCard";
+import PopularCategories from "@/components/PopularCategories"; // Importar PopularCategories
 import { Button } from "@/components/ui/button";
 import { Zap, Users, Building } from 'lucide-react';
 import { Link, useSearchParams } from "react-router-dom";
@@ -106,6 +106,9 @@ const Index = () => {
           </div>
         </div>
       </section>
+
+      {/* Nova Seção de Categorias Populares */}
+      <PopularCategories />
       
       {/* Seção de Serviços em Destaque ou Resultados da Busca */}
       <section className="py-16 md:py-20">
