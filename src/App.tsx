@@ -6,7 +6,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-// Header import removed
+import Header from "@/components/layout/Header"; // Re-adicionando a importação do Header
 import Footer from "@/components/layout/Footer";
 import AllCategoriesPage from "./pages/AllCategoriesPage";
 import ProviderRegistrationPage from "./pages/ProviderRegistrationPage";
@@ -20,7 +20,7 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
-          {/* Header component removed from here */}
+          <Header /> {/* Adicionando o Header de volta */}
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Index />} />
@@ -38,4 +38,3 @@ const App = () => (
 );
 
 export default App;
-
