@@ -6,10 +6,10 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
-import Header from "@/components/layout/Header";
+// Header import removed
 import Footer from "@/components/layout/Footer";
-import AllCategoriesPage from "./pages/AllCategoriesPage"; // Nova importação
-import ProviderRegistrationPage from "./pages/ProviderRegistrationPage"; // Nova importação
+import AllCategoriesPage from "./pages/AllCategoriesPage";
+import ProviderRegistrationPage from "./pages/ProviderRegistrationPage";
 
 const queryClient = new QueryClient();
 
@@ -20,12 +20,12 @@ const App = () => (
       <Sonner />
       <BrowserRouter>
         <div className="flex flex-col min-h-screen">
-          <Header />
+          {/* Header component removed from here */}
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Index />} />
-              <Route path="/categories" element={<AllCategoriesPage />} /> {/* Nova rota */}
-              <Route path="/register-service" element={<ProviderRegistrationPage />} /> {/* Nova rota */}
+              <Route path="/categories" element={<AllCategoriesPage />} />
+              <Route path="/register-service" element={<ProviderRegistrationPage />} />
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
@@ -38,3 +38,4 @@ const App = () => (
 );
 
 export default App;
+
