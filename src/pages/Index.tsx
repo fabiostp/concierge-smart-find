@@ -1,23 +1,54 @@
+import { useState } from "react";
 import SearchBar from "@/components/SearchBar";
-import ServiceCard from "@/components/ServiceCard";
+import ServiceCard, { ServiceProvider } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Zap, Users, Building } from 'lucide-react';
 import { Link } from "react-router-dom";
 import { sampleProviders } from "@/data/providers";
 
 const Index = () => {
+  const [filteredProviders, setFilteredProviders] = useState<ServiceProvider[] | null>(null);
+  const [activeSearchTerm, setActiveSearchTerm] = useState<string>("");
+
   const handleSearch = (searchTerm: string) => {
-    // Lógica para lidar com a busca será implementada aqui
-    // Por enquanto, apenas exibimos no console
-    console.log("Termo buscado na página Index:", searchTerm);
-    // Poderíamos filtrar `sampleProviders` aqui ou fazer uma chamada API
+    const trimmedSearchTerm = searchTerm.trim();
+    setActiveSearchTerm(trimmedSearchTerm);
+
+    if (!trimmedSearchTerm) {
+      setFilteredProviders(null);
+      console.log("Busca resetada. Mostrando parceiros em destaque.");
+      return;
+    }
+
+    console.log("Termo buscado na página Index:", trimmedSearchTerm);
+    const lowerSearchTerm = trimmedSearchTerm.toLowerCase();
+
+    const results = sampleProviders.filter(provider => {
+      const searchableText = [
+        provider.name,
+        provider.service,
+        provider.category,
+        ...(provider.tags || [])
+      ].join(' ').toLowerCase();
+      return searchableText.includes(lowerSearchTerm);
+    });
+
+    const rankedResults = results.sort((a, b) => {
+      if (a.rating !== b.rating) {
+        return b.rating - a.rating; // Maior rating primeiro
+      }
+      return b.reviews - a.reviews; // Maior número de reviews primeiro
+    });
+
+    console.log("Resultados encontrados:", rankedResults.length);
+    setFilteredProviders(rankedResults);
   };
 
   return (
     <>
       {/* Seção Hero */}
-      <section className="pb-16 md:pb-24 bg-gradient-to-br from-primary/10 via-background to-background"> {/* Padding superior removido daqui */}
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 md:pt-12"> {/* Padding superior adicionado aqui */}
+      <section className="pb-16 md:pb-24 bg-gradient-to-br from-primary/10 via-background to-background">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center pt-8 md:pt-12">
           <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight mb-6">
             Encontre os <span className="text-primary">parceiros ideais</span> para o seu sucesso.
           </h1>
@@ -57,28 +88,56 @@ const Index = () => {
         </div>
       </section>
       
-      {/* Seção de Serviços em Destaque (Exemplo) */}
+      {/* Seção de Serviços em Destaque ou Resultados da Busca */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <h2 className="text-3xl font-bold text-center mb-12">
-            Parceiros em Destaque
-          </h2>
-          {sampleProviders.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {sampleProviders.slice(0, 3).map((provider) => ( // Mostrar apenas 3 em destaque na home
-                <ServiceCard key={provider.id} provider={provider} />
-              ))}
-            </div>
+          {filteredProviders === null ? (
+            // Modo Padrão: Parceiros em Destaque
+            <>
+              <h2 className="text-3xl font-bold text-center mb-12">
+                Parceiros em Destaque
+              </h2>
+              {sampleProviders.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {sampleProviders.slice(0, 3).map((provider) => (
+                    <ServiceCard key={provider.id} provider={provider} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground">
+                  Nenhum parceiro em destaque no momento. Volte em breve!
+                </p>
+              )}
+              <div className="text-center mt-12">
+                <Button size="lg" variant="outline" asChild>
+                  <Link to="/categories">Ver todas as categorias e parceiros</Link>
+                </Button>
+              </div>
+            </>
           ) : (
-            <p className="text-center text-muted-foreground">
-              Nenhum parceiro em destaque no momento. Volte em breve!
-            </p>
+            // Modo Busca: Resultados da Busca
+            <>
+              <h2 className="text-3xl font-bold text-center mb-12">
+                Resultados para "{activeSearchTerm}"
+              </h2>
+              {filteredProviders.length > 0 ? (
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                  {filteredProviders.map((provider) => (
+                    <ServiceCard key={provider.id} provider={provider} />
+                  ))}
+                </div>
+              ) : (
+                <p className="text-center text-muted-foreground">
+                  Nenhum parceiro encontrado para "{activeSearchTerm}". Tente outros termos ou limpe a busca.
+                </p>
+              )}
+              <div className="text-center mt-12">
+                <Button size="lg" variant="outline" onClick={() => handleSearch('')}>
+                  Limpar Busca e Ver Destaques
+                </Button>
+              </div>
+            </>
           )}
-          <div className="text-center mt-12">
-            <Button size="lg" variant="outline" asChild>
-              <Link to="/categories">Ver todas as categorias e parceiros</Link>
-            </Button>
-          </div>
         </div>
       </section>
 
