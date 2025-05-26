@@ -14,10 +14,9 @@
     --popover: 0 0% 100%;
     --popover-foreground: 222.2 84% 4.9%;
 
-    --primary: 222.2 47.4% 11.2%; /* Azul escuro padrão */
-    /* Exemplo de um tom mais vibrante para primário, se desejado: */
-    /* --primary: 200 80% 50%; */
-    --primary-foreground: 210 40% 98%;
+    /* Cores Primárias Vibrantes (Azul Energético) */
+    --primary: 205 80% 50%; /* Azul mais vibrante */
+    --primary-foreground: 210 100% 98%; /* Branco para contraste */
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -25,21 +24,20 @@
     --muted: 210 40% 96.1%;
     --muted-foreground: 215.4 16.3% 46.9%;
 
-    --accent: 210 40% 96.1%;
-    /* Exemplo de um tom mais vibrante para accent, se desejado: */
-    /* --accent: 30 90% 55%;  Laranja/Amarelo */
-    --accent-foreground: 222.2 47.4% 11.2%;
+    /* Cor de Destaque Vibrante (Laranja Acolhedor) */
+    --accent: 25 95% 55%; /* Laranja vibrante */
+    --accent-foreground: 25 100% 98%; /* Quase branco para texto sobre o laranja */
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 222.2 84% 4.9%; /* Anel de foco pode ser primário */
-    /* --ring: hsl(var(--primary)); */
+    --ring: 205 80% 50%; /* Cor do anel de foco igual à nova primária */
 
     --radius: 0.5rem;
 
+    /* ... keep existing code (sidebar variables) */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -60,9 +58,9 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    --primary: 210 40% 98%;
-    /* --primary: 200 80% 55%; */
-    --primary-foreground: 222.2 47.4% 11.2%;
+    /* Cores Primárias Vibrantes para Dark Mode */
+    --primary: 205 85% 65%; /* Azul vibrante mais claro para dark mode */
+    --primary-foreground: 222.2 47.4% 11.2%; /* Escuro para texto sobre primária clara */
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -70,18 +68,18 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    --accent: 217.2 32.6% 17.5%;
-    /* --accent: 30 90% 60%; */
-    --accent-foreground: 210 40% 98%;
+    /* Cor de Destaque Vibrante para Dark Mode */
+    --accent: 25 85% 60%; /* Laranja vibrante (pode ser um pouco menos saturado/mais escuro que no light) */
+    --accent-foreground: 25 100% 10%; /* Bem escuro para texto sobre o laranja */
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 212.7 26.8% 83.9%;
-    /* --ring: hsl(var(--primary)); */
+    --ring: 205 85% 65%; /* Cor do anel de foco igual à nova primária do dark mode */
 
+    /* ... keep existing code (sidebar dark variables) */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -93,6 +91,7 @@
   }
 }
 
+/* ... keep existing code (layer base html, body, #root and layer components) */
 @layer base {
   html, body, #root {
     @apply h-full;
@@ -118,3 +117,4 @@
     overflow: hidden;
   }
 }
+
