@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -91,7 +90,6 @@
   }
 }
 
-/* ... keep existing code (layer base html, body, #root and layer components) */
 @layer base {
   html, body, #root {
     @apply h-full;
@@ -100,12 +98,12 @@
     @apply bg-background text-foreground antialiased;
     font-feature-settings: "rlig" 1, "calt" 1; /* Melhora a legibilidade */
   }
-  /* Ajuste para que o flex-grow funcione corretamente no App.tsx */
-  #root > div { /* Referenciando o div dentro de BrowserRouter em App.tsx */
-    @apply flex flex-col min-h-full;
+  /* Ajuste para que o flex container funcione corretamente no App.tsx */
+  #root > div {
+    @apply flex flex-col h-full; /* <-- ajustado de min-h-full para h-full */
   }
   main {
-    @apply flex-grow;
+    @apply flex-1; /* <-- ajustado de flex-grow para flex-1 */
   }
 }
 
@@ -117,4 +115,3 @@
     overflow: hidden;
   }
 }
-
