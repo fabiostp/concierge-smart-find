@@ -14,8 +14,8 @@
     --popover-foreground: 222.2 84% 4.9%;
 
     /* Cores Primárias Vibrantes (Azul Energético) */
-    --primary: 205 80% 50%; /* Azul mais vibrante */
-    --primary-foreground: 210 100% 98%; /* Branco para contraste */
+    --primary: 205 80% 50%;
+    --primary-foreground: 210 100% 98%;
 
     --secondary: 210 40% 96.1%;
     --secondary-foreground: 222.2 47.4% 11.2%;
@@ -24,19 +24,19 @@
     --muted-foreground: 215.4 16.3% 46.9%;
 
     /* Cor de Destaque Vibrante (Laranja Acolhedor) */
-    --accent: 25 95% 55%; /* Laranja vibrante */
-    --accent-foreground: 25 100% 98%; /* Quase branco para texto sobre o laranja */
+    --accent: 25 95% 55%;
+    --accent-foreground: 25 100% 98%;
 
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 214.3 31.8% 91.4%;
     --input: 214.3 31.8% 91.4%;
-    --ring: 205 80% 50%; /* Cor do anel de foco igual à nova primária */
+    --ring: 205 80% 50%;
 
     --radius: 0.5rem;
 
-    /* ... keep existing code (sidebar variables) */
+    /* Sidebar variables */
     --sidebar-background: 0 0% 98%;
     --sidebar-foreground: 240 5.3% 26.1%;
     --sidebar-primary: 240 5.9% 10%;
@@ -57,9 +57,8 @@
     --popover: 222.2 84% 4.9%;
     --popover-foreground: 210 40% 98%;
 
-    /* Cores Primárias Vibrantes para Dark Mode */
-    --primary: 205 85% 65%; /* Azul vibrante mais claro para dark mode */
-    --primary-foreground: 222.2 47.4% 11.2%; /* Escuro para texto sobre primária clara */
+    --primary: 205 85% 65%;
+    --primary-foreground: 222.2 47.4% 11.2%;
 
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -67,18 +66,16 @@
     --muted: 217.2 32.6% 17.5%;
     --muted-foreground: 215 20.2% 65.1%;
 
-    /* Cor de Destaque Vibrante para Dark Mode */
-    --accent: 25 85% 60%; /* Laranja vibrante (pode ser um pouco menos saturado/mais escuro que no light) */
-    --accent-foreground: 25 100% 10%; /* Bem escuro para texto sobre o laranja */
+    --accent: 25 85% 60%;
+    --accent-foreground: 25 100% 10%;
 
     --destructive: 0 62.8% 30.6%;
     --destructive-foreground: 210 40% 98%;
 
     --border: 217.2 32.6% 17.5%;
     --input: 217.2 32.6% 17.5%;
-    --ring: 205 85% 65%; /* Cor do anel de foco igual à nova primária do dark mode */
+    --ring: 205 85% 65%;
 
-    /* ... keep existing code (sidebar dark variables) */
     --sidebar-background: 240 5.9% 10%;
     --sidebar-foreground: 240 4.8% 95.9%;
     --sidebar-primary: 224.3 76.3% 48%;
@@ -88,22 +85,14 @@
     --sidebar-border: 240 3.7% 15.9%;
     --sidebar-ring: 217.2 91.2% 59.8%;
   }
-}
 
-@layer base {
   html, body, #root {
-    @apply h-full;
+    @apply h-auto;
   }
+
   body {
     @apply bg-background text-foreground antialiased;
-    font-feature-settings: "rlig" 1, "calt" 1; /* Melhora a legibilidade */
-  }
-  /* Ajuste para que o flex container funcione corretamente no App.tsx */
-  #root > div {
-    @apply flex flex-col h-full; /* <-- ajustado de min-h-full para h-full */
-  }
-  main {
-    @apply flex-1; /* <-- ajustado de flex-grow para flex-1 */
+    font-feature-settings: "rlig" 1, "calt" 1;
   }
 }
 
