@@ -1,16 +1,17 @@
-import { useState } from "react";
-import SearchBar from "@/components/SearchBar";
+import { useState, useEffect, useCallback } from "react";
+// SearchBar import is removed as it's no longer directly used here.
 import ServiceCard, { ServiceProvider } from "@/components/ServiceCard";
 import { Button } from "@/components/ui/button";
 import { Zap, Users, Building } from 'lucide-react';
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom"; // Removed useNavigate as setSearchParams handles navigation implicitly
 import { sampleProviders } from "@/data/providers";
 
 const Index = () => {
   const [filteredProviders, setFilteredProviders] = useState<ServiceProvider[] | null>(null);
   const [activeSearchTerm, setActiveSearchTerm] = useState<string>("");
+  const [searchParams, setSearchParams] = useSearchParams();
 
-  const handleSearch = (searchTerm: string) => {
+  const handleSearch = useCallback((searchTerm: string) => {
     const trimmedSearchTerm = searchTerm.trim();
     setActiveSearchTerm(trimmedSearchTerm);
 
@@ -42,6 +43,21 @@ const Index = () => {
 
     console.log("Resultados encontrados:", rankedResults.length);
     setFilteredProviders(rankedResults);
+  }, [setActiveSearchTerm, setFilteredProviders]); // Dependencies for useCallback
+
+  useEffect(() => {
+    const queryParamSearch = searchParams.get("search");
+    
+    if (queryParamSearch !== null) { // Se existe o parâmetro "search" na URL
+      handleSearch(queryParamSearch);
+    } else if (activeSearchTerm !== "") { // Se não há parâmetro mas havia uma busca ativa
+      handleSearch(""); // Limpa a busca
+    }
+    // Se queryParamSearch é null e activeSearchTerm já é "", não faz nada.
+  }, [searchParams, handleSearch, activeSearchTerm]);
+
+  const clearSearchAndShowFeatured = () => {
+    setSearchParams({}); // Remove o parâmetro "search" da URL, o que acionará o useEffect
   };
 
   return (
@@ -55,9 +71,7 @@ const Index = () => {
           <p className="max-w-2xl mx-auto text-lg sm:text-xl text-muted-foreground mb-10">
             Chega de perder tempo em grupos! concierge.ia conecta você aos melhores profissionais e serviços de forma rápida e inteligente.
           </p>
-          <div className="max-w-2xl mx-auto">
-            <SearchBar onSearch={handleSearch} />
-          </div>
+          {/* A SearchBar foi removida desta seção */}
         </div>
       </section>
 
@@ -91,7 +105,7 @@ const Index = () => {
       {/* Seção de Serviços em Destaque ou Resultados da Busca */}
       <section className="py-16 md:py-20">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          {filteredProviders === null ? (
+          {activeSearchTerm === "" ? (
             // Modo Padrão: Parceiros em Destaque
             <>
               <h2 className="text-3xl font-bold text-center mb-12">
@@ -120,7 +134,7 @@ const Index = () => {
               <h2 className="text-3xl font-bold text-center mb-12">
                 Resultados para "{activeSearchTerm}"
               </h2>
-              {filteredProviders.length > 0 ? (
+              {filteredProviders && filteredProviders.length > 0 ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                   {filteredProviders.map((provider) => (
                     <ServiceCard key={provider.id} provider={provider} />
@@ -132,7 +146,7 @@ const Index = () => {
                 </p>
               )}
               <div className="text-center mt-12">
-                <Button size="lg" variant="outline" onClick={() => handleSearch('')}>
+                <Button size="lg" variant="outline" onClick={clearSearchAndShowFeatured}>
                   Limpar Busca e Ver Destaques
                 </Button>
               </div>
