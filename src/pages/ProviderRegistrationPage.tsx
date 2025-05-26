@@ -1,4 +1,3 @@
-
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
@@ -16,7 +15,8 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
-import { Info } from "lucide-react";
+import { Info, ArrowLeft } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const formSchema = z.object({
   serviceName: z.string().min(2, { message: "Nome do serviço deve ter pelo menos 2 caracteres." }),
@@ -30,6 +30,7 @@ const formSchema = z.object({
 type ProviderFormValues = z.infer<typeof formSchema>;
 
 const ProviderRegistrationPage = () => {
+  const navigate = useNavigate();
   const form = useForm<ProviderFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -43,19 +44,27 @@ const ProviderRegistrationPage = () => {
   });
 
   function onSubmit(values: ProviderFormValues) {
-    // A lógica de envio real (para um backend) seria implementada aqui.
-    // Por enquanto, apenas exibimos no console.
     console.log("Dados do formulário de cadastro do provedor:", values);
-    // Idealmente, aqui você faria uma chamada para sua API (Supabase Function, por exemplo)
-    // para criar o usuário e registrar o serviço.
     alert("Cadastro enviado (simulação)! Verifique o console para os dados.");
   }
+
+  const handleGoBack = () => {
+    navigate(-1);
+  };
 
   return (
     <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-12 flex justify-center">
       <Card className="w-full max-w-2xl">
         <CardHeader>
-          <CardTitle className="text-3xl font-bold text-center">Cadastre seu Serviço</CardTitle>
+          <Button
+            variant="ghost"
+            onClick={handleGoBack}
+            className="absolute left-4 top-4 md:left-6 md:top-6 text-sm px-2 py-1 h-auto"
+          >
+            <ArrowLeft className="mr-2 h-4 w-4" />
+            Voltar
+          </Button>
+          <CardTitle className="text-3xl font-bold text-center pt-8 md:pt-0">Cadastre seu Serviço</CardTitle>
           <CardDescription className="text-center">
             Preencha o formulário abaixo para se juntar à nossa rede de parceiros.
           </CardDescription>
@@ -174,4 +183,3 @@ const ProviderRegistrationPage = () => {
 };
 
 export default ProviderRegistrationPage;
-
