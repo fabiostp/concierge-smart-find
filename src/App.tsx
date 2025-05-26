@@ -8,6 +8,8 @@ import Index from "./pages/Index";
 import NotFound from "./pages/NotFound";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import AllCategoriesPage from "./pages/AllCategoriesPage"; // Nova importação
+import ProviderRegistrationPage from "./pages/ProviderRegistrationPage"; // Nova importação
 
 const queryClient = new QueryClient();
 
@@ -22,6 +24,8 @@ const App = () => (
           <main className="flex-grow">
             <Routes>
               <Route path="/" element={<Index />} />
+              <Route path="/categories" element={<AllCategoriesPage />} /> {/* Nova rota */}
+              <Route path="/register-service" element={<ProviderRegistrationPage />} /> {/* Nova rota */}
               {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
               <Route path="*" element={<NotFound />} />
             </Routes>
