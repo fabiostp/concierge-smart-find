@@ -2,10 +2,10 @@
 #root {
   max-width: 1280px;
   margin: 0 auto;
-  padding-left: 2rem; /* Mantém o padding lateral */
-  padding-right: 2rem; /* Mantém o padding lateral */
-  padding-bottom: 2rem; /* Mantém o padding inferior */
-  /* padding-top: 0; foi removido, ou padding: 0 2rem 2rem 2rem; */
+  padding-top: 0; /* Explicitamente definido como 0 */
+  padding-left: 2rem;
+  padding-right: 2rem;
+  padding-bottom: 2rem;
   text-align: center;
 }
 
